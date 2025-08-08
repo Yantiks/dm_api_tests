@@ -1,3 +1,6 @@
+import requests
+import loads
+
 class MailApi:
     def __init__(self, host, headers=None):
         self.host = host
@@ -28,3 +31,13 @@ class MailApi:
                                 verify=False
                                 )
         return response
+
+    def get_activation_token(self, login, response):
+        token = None
+
+        for item in response.json()['items']:
+            user_data = loads(item['Content']['Body'])
+            user_login = user_data['Login']
+            if user_login == login:
+                token = user_data['ConfirmationLinkUrl'].split('/')[-1]
+        return token
