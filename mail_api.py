@@ -1,0 +1,20 @@
+class MailApi:
+    def __init__(self, host, headers=None):
+        self.host = host
+        self.headers = headers
+
+    # получение токена с почты
+    def get_messages(self):
+        headers = {
+            'Accept': 'application/json, text/plain, */*',
+            'Accept-Language': 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7',
+            'Connection': 'keep-alive',
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36',
+        }
+
+        params = {
+            'limit': '50',
+        }
+
+        response = requests.get('http://5.63.153.31:5025/api/v2/messages', params=params, headers=headers, verify=False)
+        return response
