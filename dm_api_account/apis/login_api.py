@@ -17,11 +17,7 @@ class LoginApi:
             'Content-Type': 'application/json',
         }
 
-        json_data = {
-            'login': 'string',
-            'password': 'string',
-            'rememberMe': True,
-        }
+
 
         response = requests.post(url=f'{self.host}/v1/account/login',
                                  headers=headers,

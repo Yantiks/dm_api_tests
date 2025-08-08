@@ -1,5 +1,5 @@
 import requests
-import loads
+from json import loads
 
 class MailApi:
     def __init__(self, host, headers=None):

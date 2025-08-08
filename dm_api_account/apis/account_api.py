@@ -44,7 +44,7 @@ class AccountApi:
         return response
 
     # метод для изменения имейла
-    def put_account_email(self, json_data, email):
+    def put_account_email(self, json_data):
         """"
         Change registered user email
         :param json_data:
@@ -56,13 +56,8 @@ class AccountApi:
             'Content-Type': 'application/json',
         }
 
-        json_data = {
-            'login': 'string',
-            'password': 'string',
-            'email': 'string',
-        }
 
-        response = requests.put(url=f'{self.host}/v1/account/{email}',
+        response = requests.put(url=f'{self.host}/v1/account/email',
                                 headers=headers,
                                 json=json_data
                                 )
