@@ -7,6 +7,11 @@ class LoginApi:
 
     # логин пользователя
     def post_account_login(self, json_data):
+        """"
+        Authenticate via credentials
+        :param json_data:
+        :return:
+        """
         headers = {
             'accept': 'text/plain',
             'Content-Type': 'application/json',
@@ -18,5 +23,9 @@ class LoginApi:
             'rememberMe': True,
         }
 
-        response = requests.post('http://5.63.153.31:5051/v1/account/login', headers=headers, json=json_data)
+        response = requests.post(url=f'{self.host}/v1/account/login',
+                                 headers=headers,
+                                 json=json_data
+                                 )
+
         return response

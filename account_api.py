@@ -10,33 +10,47 @@ class AccountApi:
 
     # метод для регистрации пользователя
     def post_account(self, json_data):
-        headers = self.headers
+        """"
+        Register new user
+        :param json_data:
+        :return:
+        """
+        #headers = self.headers
 
-        json_data = {
-            'login': 'string',
-            'email': 'string',
-            'password': 'string',
-        }
-
-        response = requests.post('http://5.63.153.31:5051/v1/account', headers=headers, json=json_data)
+        response = requests.post(url=f'{self.host}/v1/account',
+                                 #headers=headers,
+                                 json=json_data
+                                 )
 
         return response
 
     # метод для активации токена
     def put_account_token(self, token):
+        """"
+        Activate register user
+        :param token:
+        :return:
+        """
         headers = self.headers
 
         headers = {
             'accept': 'text/plain',
         }
 
-        response = requests.put(f'http://5.63.153.31:5051/v1/account/{token}',
-                                headers=headers)
+        response = requests.put(url=f'{self.host}/v1/account/{token}',
+                                headers=headers
+                                )
 
         return response
 
     # метод для изменения имейла
-    def put_account_email(self, json_data,email):
+    def put_account_email(self, json_data, email):
+        """"
+        Change registered user email
+        :param json_data:
+        :param email:
+        :return:
+        """
         headers = {
             'accept': 'text/plain',
             'Content-Type': 'application/json',
@@ -48,5 +62,8 @@ class AccountApi:
             'email': 'string',
         }
 
-        response = requests.put(f'http://5.63.153.31:5051/v1/account/{email}', headers=headers, json=json_data)
+        response = requests.put(url=f'{self.host}/v1/account/{email}',
+                                headers=headers,
+                                json=json_data
+                                )
         return response

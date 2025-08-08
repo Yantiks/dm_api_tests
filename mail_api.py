@@ -4,7 +4,13 @@ class MailApi:
         self.headers = headers
 
     # получение токена с почты
-    def get_messages(self):
+    def get_messages(self, limit=50):
+        """"
+        Ger users emails
+        :param limit:
+        :return:
+        """
+
         headers = {
             'Accept': 'application/json, text/plain, */*',
             'Accept-Language': 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7',
@@ -13,8 +19,12 @@ class MailApi:
         }
 
         params = {
-            'limit': '50',
+            'limit': limit,
         }
 
-        response = requests.get('http://5.63.153.31:5025/api/v2/messages', params=params, headers=headers, verify=False)
+        response = requests.get(url=f'{self.host}/api/v2/messages',
+                                params=params,
+                                headers=headers,
+                                verify=False
+                                )
         return response
