@@ -7,7 +7,7 @@ class MailApi:
         self.headers = headers
 
     # получение токена с почты
-    def get_messages(self, limit=50):
+    def get_api_v2_messages(self, limit=50):
         """"
         Ger users emails
         :param limit:

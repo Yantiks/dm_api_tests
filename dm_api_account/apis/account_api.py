@@ -9,7 +9,7 @@ class AccountApi:
         return self.headers
 
     # метод для регистрации пользователя
-    def post_account(self, json_data):
+    def post_v1_account(self, json_data):
         """"
         Register new user
         :param json_data:
@@ -25,13 +25,13 @@ class AccountApi:
         return response
 
     # метод для активации токена
-    def put_account_token(self, token):
+    def put_v1_account_token(self, token):
         """"
         Activate register user
         :param token:
         :return:
         """
-        headers = self.headers
+        #headers = self.headers
 
         headers = {
             'accept': 'text/plain',
@@ -44,7 +44,7 @@ class AccountApi:
         return response
 
     # метод для изменения имейла
-    def put_account_email(self, json_data):
+    def put_v1_account_email(self, json_data):
         """"
         Change registered user email
         :param json_data:

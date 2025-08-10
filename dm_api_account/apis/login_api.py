@@ -6,7 +6,7 @@ class LoginApi:
         self.headers = headers
 
     # логин пользователя
-    def post_account_login(self, json_data):
+    def post_v1_account_login(self, json_data):
         """"
         Authenticate via credentials
         :param json_data:
