@@ -9,7 +9,7 @@ def test_login_account():
     mail_api = MailApi(host='http://5.63.153.31:5025')
 
     # регистрация нового пользователя
-    login = 'yantik_test19'
+    login = 'yantik_test26'
     password = "12345abcdi"
     email = f'{login}@google.com'
     json_data = {
