@@ -5,7 +5,7 @@ def test_account_creation():
     account_api = AccountApi(host='http://5.63.153.31:5051')
 
     # регистрация нового пользователя
-    login = 'yantik_test43'
+    login = 'yantik_test55'
     password = "12345abcdi"
     email = f'{login}@google.com'
     json_data = {
