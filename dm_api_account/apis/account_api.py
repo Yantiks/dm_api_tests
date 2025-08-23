@@ -1,12 +1,7 @@
 import requests
+from restclient.client import RestClient
 
-class AccountApi:
-    def __init__(self, host, headers=None):
-        self.host = host
-        self.headers = headers
-
-    def get_headers(self):
-        return self.headers
+class AccountApi(RestClient):
 
     # метод для регистрации пользователя
     def post_v1_account(self, json_data):
@@ -17,11 +12,10 @@ class AccountApi:
         """
         #headers = self.headers
 
-        response = requests.post(url=f'{self.host}/v1/account',
-                                 #headers=headers,
-                                 json=json_data
-                                 )
-
+        response = self.post(
+            path='/v1/account',
+            json=json_data
+        )
         return response
 
     # метод для активации токена
@@ -37,9 +31,10 @@ class AccountApi:
             'accept': 'text/plain',
         }
 
-        response = requests.put(url=f'{self.host}/v1/account/{token}',
-                                headers=headers
-                                )
+        response = self.put(
+            path=f'/v1/account/{token}',
+            headers=headers
+        )
 
         return response
 
@@ -56,9 +51,9 @@ class AccountApi:
             'Content-Type': 'application/json',
         }
 
-
-        response = requests.put(url=f'{self.host}/v1/account/email',
-                                headers=headers,
-                                json=json_data
-                                )
+        response = self.put(
+            path='/v1/account/email',
+            headers=headers,
+            json=json_data
+        )
         return response

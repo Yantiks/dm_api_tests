@@ -1,10 +1,8 @@
 import requests
 from json import loads
+from restclient.client import RestClient
 
-class MailApi:
-    def __init__(self, host, headers=None):
-        self.host = host
-        self.headers = headers
+class MailApi(RestClient):
 
     # получение токена с почты
     def get_api_v2_messages(self, limit=50):
@@ -25,11 +23,12 @@ class MailApi:
             'limit': limit,
         }
 
-        response = requests.get(url=f'{self.host}/api/v2/messages',
-                                params=params,
-                                headers=headers,
-                                verify=False
-                                )
+        response = self.get(
+            path='/api/v2/messages',
+            params=params,
+            headers=headers,
+            verify=False
+        )
         return response
 
     def get_activation_token(self, login, response):
