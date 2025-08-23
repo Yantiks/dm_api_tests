@@ -1,13 +1,19 @@
 from dm_api_account.apis.account_api import AccountApi
 from api_mailhog.apis.mail_api import MailApi
+import structlog
 
+structlog.configure(
+    processors=[
+        structlog.processors.JSONRenderer(indent=4, ensure_ascii=True, sort_keys=True)
+    ]
+)
 
 def test_put_account_token():
     account_api = AccountApi(host='http://5.63.153.31:5051')
     mail_api = MailApi(host='http://5.63.153.31:5025')
 
     # регистрация нового пользователя
-    login = 'yantik_test58'
+    login = 'yantik_test68'
     password = "12345abcdi"
     email = f'{login}@google.com'
     json_data = {
