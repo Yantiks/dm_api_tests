@@ -1,5 +1,6 @@
 from dm_api_account.apis.account_api import AccountApi
 import structlog
+from restclient.configuration import Configuration as AccountConfiguration
 
 structlog.configure(
     processors=[
@@ -8,10 +9,11 @@ structlog.configure(
 )
 
 def test_account_creation():
-    account_api = AccountApi(host='http://5.63.153.31:5051')
+    account_configuration = AccountConfiguration(host='http://5.63.153.31:5051', disable_log=False)
+    account_api = AccountApi(account_configuration)
 
     # регистрация нового пользователя
-    login = 'yantik_test69'
+    login = 'yantik_test80'
     password = "12345abcdi"
     email = f'{login}@google.com'
     json_data = {
