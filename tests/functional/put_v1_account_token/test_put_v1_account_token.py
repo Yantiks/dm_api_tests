@@ -18,7 +18,7 @@ def test_put_account_token():
     mail_api = MailApi(configuration=mailhog_configuration)
 
     # регистрация нового пользователя
-    login = 'yantik_test83'
+    login = 'yantik_test128'
     password = "12345abcdi"
     email = f'{login}@google.com'
     json_data = {

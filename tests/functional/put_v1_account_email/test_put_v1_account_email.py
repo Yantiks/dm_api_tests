@@ -20,7 +20,7 @@ def test_login_with_changed_email():
     mail_api = MailApi(configuration=mailhog_configuration)
 
     # регистрация нового пользователя
-    login = 'yantik_test82'
+    login = 'yantik_test127'
     password = "12345abcdi"
     email = f'{login}@google.com'
     json_data = {

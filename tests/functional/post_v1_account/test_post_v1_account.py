@@ -13,7 +13,7 @@ def test_account_creation():
     account_api = AccountApi(account_configuration)
 
     # регистрация нового пользователя
-    login = 'yantik_test80'
+    login = 'yantik_test125'
     password = "12345abcdi"
     email = f'{login}@google.com'
     json_data = {
