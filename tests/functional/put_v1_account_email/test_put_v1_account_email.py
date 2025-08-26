@@ -22,7 +22,7 @@ def test_login_with_changed_email():
     account_helper = AccountHelper(dm_account_api=account, mailhog=mailhog)
 
     # регистрация нового пользователя
-    login = 'yantik_test172'
+    login = 'yantik_test182'
     password = "12345abcdi"
     email = f'{login}@google.com'
     new_email = "new" + email

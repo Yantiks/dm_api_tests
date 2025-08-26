@@ -16,7 +16,7 @@ def retrier(func):
                 raise AssertionError("Превышено количество попыток получения токена")
             if token:
                 return token
-            time.sleep(1)
+            time.sleep(3)
 
     return wrapper
 
@@ -42,8 +42,6 @@ class AccountHelper:
         return activate_token
 
     def get_and_activate_token(self, login:str):
-        # response_mail = self.mailhog.mailhog_api.get_api_v2_messages()
-        # assert response_mail.status_code == 200, "Письма не были получены"
         token = self.get_activation_token(login=login)
         assert token is not None, f"Токен для пользователя {login} не был получен"
         activate_token = self.dm_account_api.account_api.put_v1_account_token(token=token)
