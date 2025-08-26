@@ -17,7 +17,7 @@ def test_account_creation():
     account_helper = AccountHelper(dm_account_api=account)
 
     # регистрация нового пользователя
-    login = 'yantik_test115'
+    login = 'yantik_test121'
     password = "12345abcdi"
     email = f'{login}@google.com'
     account_helper.create_user(login=login, password=password, email=email)
