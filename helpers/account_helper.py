@@ -1,5 +1,6 @@
 import time
 from json import loads, JSONDecodeError
+from retrying import retry
 
 from services.dm_api_account import DmApiAccount
 from services.api_mailhog import MailhogApi
