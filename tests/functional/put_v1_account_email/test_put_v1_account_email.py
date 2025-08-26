@@ -1,15 +1,26 @@
 from dm_api_account.apis.account_api import AccountApi
 from dm_api_account.apis.login_api import LoginApi
 from api_mailhog.apis.mail_api import MailApi
+import structlog
+from restclient.configuration import Configuration as DmApiConfiguration
+from restclient.configuration import Configuration as MailHogConfiguration
 
+structlog.configure(
+    processors=[
+        structlog.processors.JSONRenderer(indent=4, ensure_ascii=True, sort_keys=True)
+    ]
+)
 
 def test_login_with_changed_email():
-    account_api = AccountApi(host='http://5.63.153.31:5051')
-    login_api = LoginApi(host='http://5.63.153.31:5051')
-    mail_api = MailApi(host='http://5.63.153.31:5025')
+    mailhog_configuration = MailHogConfiguration(host='http://5.63.153.31:5025')
+    dm_api_configuration = DmApiConfiguration(host='http://5.63.153.31:5051', disable_log=False)
+
+    account_api = AccountApi(configuration=dm_api_configuration)
+    login_api = LoginApi(configuration=dm_api_configuration)
+    mail_api = MailApi(configuration=mailhog_configuration)
 
     # регистрация нового пользователя
-    login = 'yantik_test57'
+    login = 'yantik_test127'
     password = "12345abcdi"
     email = f'{login}@google.com'
     json_data = {
@@ -24,14 +35,10 @@ def test_login_with_changed_email():
     response_mail = mail_api.get_api_v2_messages()
     assert response_mail.status_code == 200, "Письма не были получены"
     token = mail_api.get_activation_token(login=login, response=response_mail)
-    print(f'token: {token}')
-    print(response_mail.status_code)
     assert token is not None, f"Токен для пользователя {login} не был получен"
 
     # активация токена
     activate_token = account_api.put_v1_account_token(token=token)
-    print(f'activate_token: {activate_token.json()}')
-    print(activate_token.status_code)
     assert activate_token.status_code == 200, "Токен не был активирован"
 
     # изменение почты пользователя
@@ -42,8 +49,6 @@ def test_login_with_changed_email():
     }
 
     change_email = account_api.put_v1_account_email(json_data=json_data_new)
-    print(f'change_email: {change_email.json()}')
-    print(change_email.status_code)
     assert change_email.status_code == 200, f"Почта для пользователя {login} не была изменена"
 
     # попытка авторизации со старым токеном
@@ -53,21 +58,16 @@ def test_login_with_changed_email():
         'rememberMe': True,
     }
     try_enter = login_api.post_v1_account_login(json_data=json_data)
-    print(try_enter.status_code)
     assert try_enter.status_code == 403, f"Пользователь был авторизован, код ответа: {try_enter.status_code}"
 
     # получение нового токена с почты
     response_mail = mail_api.get_api_v2_messages()
     assert response_mail.status_code == 200, "Письма не были получены"
     token = mail_api.get_activation_token(login=login, response=response_mail)
-    print(f'token: {token}')
-    print(response_mail.status_code)
     assert token is not None, f"Токен для пользователя {login} не был получен"
 
     # активация нового токена
     activate_token = account_api.put_v1_account_token(token=token)
-    print(f'activate_token: {activate_token.json()}')
-    print(activate_token.status_code)
     assert activate_token.status_code == 200, "Токен не был активирован"
 
     # логин с новым токеном
@@ -77,5 +77,4 @@ def test_login_with_changed_email():
         'rememberMe': True,
     }
     try_enter = login_api.post_v1_account_login(json_data=json_data)
-    print(try_enter.status_code)
     assert try_enter.status_code == 200, f"Пользователь не был авторизован, код ошибки: {try_enter.status_code}"

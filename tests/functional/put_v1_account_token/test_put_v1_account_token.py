@@ -1,13 +1,24 @@
 from dm_api_account.apis.account_api import AccountApi
 from api_mailhog.apis.mail_api import MailApi
+import structlog
+from restclient.configuration import Configuration as DmApiConfiguration
+from restclient.configuration import Configuration as MailHogConfiguration
 
+structlog.configure(
+    processors=[
+        structlog.processors.JSONRenderer(indent=4, ensure_ascii=True, sort_keys=True)
+    ]
+)
 
 def test_put_account_token():
-    account_api = AccountApi(host='http://5.63.153.31:5051')
-    mail_api = MailApi(host='http://5.63.153.31:5025')
+    mailhog_configuration = MailHogConfiguration(host='http://5.63.153.31:5025')
+    dm_api_configuration = DmApiConfiguration(host='http://5.63.153.31:5051', disable_log=False)
+
+    account_api = AccountApi(configuration=dm_api_configuration)
+    mail_api = MailApi(configuration=mailhog_configuration)
 
     # регистрация нового пользователя
-    login = 'yantik_test58'
+    login = 'yantik_test128'
     password = "12345abcdi"
     email = f'{login}@google.com'
     json_data = {
