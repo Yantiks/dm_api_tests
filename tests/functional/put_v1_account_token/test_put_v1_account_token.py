@@ -24,7 +24,7 @@ def test_put_account_token():
     # регистрация нового пользователя
     # получение токена с почты
     # активация токена
-    login = 'yantik_test167'
+    login = 'yantik_test173'
     password = "12345abcdi"
     email = f'{login}@google.com'
     account_helper.register_new_user(login=login, password=password, email=email)
