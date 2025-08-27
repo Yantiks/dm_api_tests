@@ -33,6 +33,14 @@ def account_helper(account_api, mailhog_api):
     return account_helper
 
 @pytest.fixture
+def auth_account_helper(mailhog_api):
+    dm_api_configuration = DmApiConfiguration(host='http://5.63.153.31:5051', disable_log=False)
+    account = DmApiAccount(configuration=dm_api_configuration)
+    account_helper = AccountHelper(dm_account_api=account, mailhog=mailhog_api)
+    account_helper.auth_client(login="ayantikova", password="123456789")
+    return account_helper
+
+@pytest.fixture
 def prepare_user():
     now = datetime.now()
     data = now.strftime("%Y_%m_%dT%H_%M_%S")
