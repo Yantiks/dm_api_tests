@@ -22,13 +22,14 @@ def test_login_with_changed_email():
     account_helper = AccountHelper(dm_account_api=account, mailhog=mailhog)
 
     # регистрация нового пользователя
-    login = 'yantik_test152'
+    login = 'yantik_test182'
     password = "12345abcdi"
     email = f'{login}@google.com'
+    new_email = "new" + email
     account_helper.create_user(login=login, password=password, email=email)
 
     # изменение почты пользователя
-    account_helper.change_email(login=login, password=password, email=email)
+    account_helper.change_email(login=login, password=password, email=new_email)
 
     # попытка авторизации со старым токеном
     account_helper.user_login(login=login, password=password)

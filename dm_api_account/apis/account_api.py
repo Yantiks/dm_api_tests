@@ -10,7 +10,6 @@ class AccountApi(RestClient):
         :param json_data:
         :return:
         """
-        #headers = self.headers
 
         response = self.post(
             path='/v1/account',
