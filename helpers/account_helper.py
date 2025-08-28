@@ -100,6 +100,10 @@ class AccountHelper:
         self.dm_account_api.account_api.set_headers(token)
         self.dm_account_api.login_api.set_headers(token)
 
+    def get_client(self):
+        response = self.dm_account_api.account_api.get_v1_account()
+        assert response.status_code == 200, f"Данные не были получены"
+
     @retrier
     def get_token(self, login, token_type="activation"):
         token = None
