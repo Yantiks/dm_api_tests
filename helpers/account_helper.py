@@ -110,6 +110,11 @@ class AccountHelper:
         assert response.status_code == 204, f"Выход не был осуществлён"
         return response
 
+    def logout_all(self):
+        response = self.dm_account_api.login_api.delete_v1_account_login_all()
+        assert response.status_code == 204, f"Выход не был осуществлён"
+        return response
+
     @retrier
     def get_token(self, login, token_type="activation"):
         token = None

@@ -28,7 +28,6 @@ class LoginApi(RestClient):
         :return:
         """
 
-
         response = self.delete(
             path='/v1/account/login'
         )
