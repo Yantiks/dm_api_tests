@@ -1,8 +1,4 @@
-
 import structlog
-from restclient.configuration import Configuration as DmApiConfiguration
-from services.dm_api_account import DmApiAccount
-from helpers.account_helper import AccountHelper
 
 structlog.configure(
     processors=[
@@ -10,14 +6,9 @@ structlog.configure(
     ]
 )
 
-def test_account_creation():
-    dm_api_configuration = DmApiConfiguration(host='http://5.63.153.31:5051', disable_log=False)
-    account = DmApiAccount(configuration=dm_api_configuration)
-
-    account_helper = AccountHelper(dm_account_api=account)
-
+def test_account_creation(account_helper, prepare_user):
     # регистрация нового пользователя
-    login = 'yantik_test1785'
-    password = "12345abcdi"
-    email = f'{login}@google.com'
+    login = prepare_user.login
+    password = prepare_user.password
+    email = prepare_user.email
     account_helper.create_user(login=login, password=password, email=email)

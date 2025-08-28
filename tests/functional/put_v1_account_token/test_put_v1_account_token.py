@@ -12,19 +12,12 @@ structlog.configure(
     ]
 )
 
-def test_put_account_token():
-    mailhog_configuration = MailHogConfiguration(host='http://5.63.153.31:5025')
-    dm_api_configuration = DmApiConfiguration(host='http://5.63.153.31:5051', disable_log=False)
-
-    account = DmApiAccount(configuration=dm_api_configuration)
-    mailhog = MailhogApi(configuration=mailhog_configuration)
-
-    account_helper = AccountHelper(dm_account_api=account, mailhog=mailhog)
+def test_put_account_token(account_helper, prepare_user):
+    login = prepare_user.login
+    password = prepare_user.password
+    email = prepare_user.email
 
     # регистрация нового пользователя
     # получение токена с почты
     # активация токена
-    login = 'yantik_test183'
-    password = "12345abcdi"
-    email = f'{login}@google.com'
     account_helper.register_new_user(login=login, password=password, email=email)
