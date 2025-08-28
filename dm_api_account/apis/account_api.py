@@ -42,7 +42,6 @@ class AccountApi(RestClient):
         """"
         Change registered user email
         :param json_data:
-        :param email:
         :return:
         """
         headers = {
@@ -63,7 +62,6 @@ class AccountApi(RestClient):
         Get current user
         :return:
         """
-
         response = self.get(
             path='/v1/account',
             **kwargs
