@@ -33,12 +33,19 @@ def account_helper(account_api, mailhog_api):
     return account_helper
 
 @pytest.fixture
-def auth_account_helper(mailhog_api):
-    dm_api_configuration = DmApiConfiguration(host='http://5.63.153.31:5051', disable_log=False)
-    account = DmApiAccount(configuration=dm_api_configuration)
-    account_helper = AccountHelper(dm_account_api=account, mailhog=mailhog_api)
+def auth_account_helper(mailhog_api, account_api):
+    account_helper = AccountHelper(dm_account_api=account_api, mailhog=mailhog_api)
     account_helper.auth_client(login="yantik_test200", password="12345abcdi")
     return account_helper
+
+# @pytest.fixture
+# def authenticated_user(mailhog_api, account_api, prepare_user):
+#     account_helper = AccountHelper(dm_account_api=account_api, mailhog=mailhog_api)
+#     account_helper.auth_client(login=prepare_user.login, password=prepare_user.password)
+#     return {
+#         'account_helper': account_helper,
+#         'user_data': prepare_user
+#     }
 
 @pytest.fixture
 def prepare_user():

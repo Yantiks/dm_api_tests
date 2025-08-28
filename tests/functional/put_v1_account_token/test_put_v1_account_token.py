@@ -1,10 +1,4 @@
-
 import structlog
-from restclient.configuration import Configuration as DmApiConfiguration
-from restclient.configuration import Configuration as MailHogConfiguration
-from services.api_mailhog import MailhogApi
-from services.dm_api_account import DmApiAccount
-from helpers.account_helper import AccountHelper
 
 structlog.configure(
     processors=[
