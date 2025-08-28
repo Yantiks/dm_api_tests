@@ -103,6 +103,12 @@ class AccountHelper:
     def get_client(self):
         response = self.dm_account_api.account_api.get_v1_account()
         assert response.status_code == 200, f"Данные не были получены"
+        return response
+
+    def logout_current_user(self):
+        response = self.dm_account_api.login_api.delete_v1_account_login()
+        assert response.status_code == 204, f"Выход не был осуществлён"
+        return response
 
     @retrier
     def get_token(self, login, token_type="activation"):
