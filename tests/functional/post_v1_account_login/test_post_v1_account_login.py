@@ -1,4 +1,3 @@
-
 def test_login_account(account_helper, prepare_user):
     # регистрация нового пользователя
     # получение токена с почты
