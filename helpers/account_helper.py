@@ -60,6 +60,10 @@ class AccountHelper:
 
         return response
 
+    def get_auth_token_header(self, response):
+        token = {"x-dm-auth-token": response.headers["x-dm-auth-token"]}
+        return token
+
     def change_email(self, login:str, password:str, email:str):
         json_data_new = {
             'login': login,
@@ -105,8 +109,9 @@ class AccountHelper:
         assert response.status_code == 200, f"Данные не были получены"
         return response
 
-    def logout_current_user(self):
-        response = self.dm_account_api.login_api.delete_v1_account_login()
+    def logout_current_user(self, response):
+        token_header = self.get_auth_token_header(response)
+        response = self.dm_account_api.login_api.delete_v1_account_login(headers=token_header)
         assert response.status_code == 204, f"Выход не был осуществлён"
         return response
 
