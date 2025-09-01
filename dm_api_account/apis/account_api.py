@@ -1,19 +1,23 @@
 import requests
+
+from dm_api_account.models.change_email import ChangeEmail
+from dm_api_account.models.change_password import ChangePassword
+from dm_api_account.models.reset_password import ResetPassword
 from restclient.client import RestClient
+from dm_api_account.models.registration import Registration
 
 class AccountApi(RestClient):
 
     # метод для регистрации пользователя
-    def post_v1_account(self, json_data):
+    def post_v1_account(self, registration: Registration):
         """"
         Register new user
-        :param json_data:
         :return:
         """
 
         response = self.post(
             path='/v1/account',
-            json=json_data
+            json=registration.model_dump(exclude_none=True, by_alias=True)
         )
         return response
 
@@ -24,35 +28,22 @@ class AccountApi(RestClient):
         :param token:
         :return:
         """
-        #headers = self.headers
-
-        headers = {
-            'accept': 'text/plain',
-        }
 
         response = self.put(
-            path=f'/v1/account/{token}',
-            headers=headers
+            path=f'/v1/account/{token}'
         )
 
         return response
 
     # метод для изменения имейла
-    def put_v1_account_email(self, json_data):
+    def put_v1_account_email(self, change_email:ChangeEmail):
         """"
         Change registered user email
-        :param json_data:
         :return:
         """
-        headers = {
-            'accept': 'text/plain',
-            'Content-Type': 'application/json',
-        }
-
         response = self.put(
             path='/v1/account/email',
-            headers=headers,
-            json=json_data
+            json=change_email.model_dump(exclude_none=True, by_alias=True)
         )
         return response
 
@@ -69,39 +60,25 @@ class AccountApi(RestClient):
         return response
 
     # метод для изменения пароля
-    def put_v1_account_password(self, json_data):
+    def put_v1_account_password(self, change_password: ChangePassword):
         """"
         Change registered user password
-        :param json_data:
         :return:
         """
-        headers = {
-            'accept': 'text/plain',
-            'Content-Type': 'application/json',
-        }
-
         response = self.put(
             path='/v1/account/password',
-            headers=headers,
-            json=json_data
+            json=change_password.model_dump(exclude_none=True, by_alias=True)
         )
         return response
 
     # метод для изменения пароля
-    def post_v1_account_password(self, json_data):
+    def post_v1_account_password(self, reset_password:ResetPassword):
         """"
         Change registered user password
-        :param json_data:
         :return:
         """
-        headers = {
-            'accept': 'text/plain',
-            'Content-Type': 'application/json',
-        }
-
         response = self.post(
             path='/v1/account/password',
-            headers=headers,
-            json=json_data
+            json=reset_password.model_dump(exclude_none=True, by_alias=True)
         )
         return response
