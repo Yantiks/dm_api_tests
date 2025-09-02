@@ -56,7 +56,7 @@ class AccountHelper:
 
         return activate_token
 
-    def user_login(self, login:str, password:str, remember_me:bool=True, validate_response:bool=False):
+    def user_login(self, login:str, password:str, remember_me:bool=True, validate_response:bool=False, validate_headers=False):
         login_credentials = LoginCredentials(
             login=login,
             password=password,
@@ -64,7 +64,8 @@ class AccountHelper:
         )
         response = self.dm_account_api.login_api.post_v1_account_login(login_credentials=login_credentials,
                                                                        validate_response=validate_response)
-        # assert response.status_code == 403, f"Пользователь был авторизован, код ответа: {response.status_code}"
+        if validate_headers:
+            assert response.status_code == 403, f"Пользователь был авторизован, код ответа: {response.status_code}"
         return response
 
     def get_auth_token_header(self, response):
