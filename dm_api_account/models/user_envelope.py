@@ -20,6 +20,8 @@ class UserRole(str, Enum):
     REGULAR_MODERATOR = 'RegularModerator'
     SENIOR_MODERATOR = 'SeniorModerator'
 
+class Metadata(BaseModel):
+    email: str | None = None
 
 class User(BaseModel):
     login: str
@@ -36,6 +38,5 @@ class User(BaseModel):
 
 class UserEnvelope(BaseModel):
     model_config = ConfigDict(extra="forbid")
-
     resource: Optional[User] = None
-    metadata: Optional[str] = None
+    metadata: Metadata | str | None = Field(None, alias='metadata')

@@ -45,14 +45,14 @@ class AccountHelper:
         activate_token = self.get_and_activate_token(login=login)
         return activate_token
 
-    def get_and_activate_token(self, login:str):
+    def get_and_activate_token(self, login:str, validate_response:bool=True):
         start_time = time.time()
         token = self.get_token(login=login)
         end_time = time.time()
         assert end_time - start_time < 3, 'Время ожидания активации превышено'
         assert token is not None, f"Токен для пользователя {login} не был получен"
-        activate_token = self.dm_account_api.account_api.put_v1_account_token(token=token)
-        assert activate_token.status_code == 200, "Токен не был активирован"
+        activate_token = self.dm_account_api.account_api.put_v1_account_token(token=token, validate_response=validate_response)
+        # assert activate_token.status_code == 200, "Токен не был активирован"
 
         return activate_token
 
@@ -71,21 +71,21 @@ class AccountHelper:
         token = {"x-dm-auth-token": response.headers["x-dm-auth-token"]}
         return token
 
-    def change_email(self, login:str, password:str, email:str):
+    def change_email(self, login:str, password:str, email:str, validate_response:bool=True):
         change_email = ChangeEmail(
             login=login,
             password=password,
             email=email
         )
 
-        response = self.dm_account_api.account_api.put_v1_account_email(change_email=change_email)
-        assert response.status_code == 200, f"Почта для пользователя {login} не была изменена"
+        response = self.dm_account_api.account_api.put_v1_account_email(change_email=change_email, validate_response=validate_response)
+        # assert response.status_code == 200, f"Почта для пользователя {login} не была изменена"
         return response
 
-    def reset_password(self, login:str, email:str):
+    def reset_password(self, login:str, email:str, validate_response:bool=True):
         reset_password = ResetPassword(login=login, email=email)
-        response = self.dm_account_api.account_api.post_v1_account_password(reset_password=reset_password)
-        assert response.status_code == 200, f"Пароль не был сброшен, код ошибки: {response.status_code}"
+        response = self.dm_account_api.account_api.post_v1_account_password(reset_password=reset_password, validate_response=validate_response)
+        # assert response.status_code == 200, f"Пароль не был сброшен, код ошибки: {response.status_code}"
         token = self.get_token(login=login, token_type="reset")
         assert token is not None, f"Токен для пользователя {login} не был получен"
         return token
@@ -109,9 +109,9 @@ class AccountHelper:
         self.dm_account_api.account_api.set_headers(token)
         self.dm_account_api.login_api.set_headers(token)
 
-    def get_client(self):
-        response = self.dm_account_api.account_api.get_v1_account()
-        assert response.status_code == 200, f"Данные не были получены"
+    def get_client(self, validate_response=True):
+        response = self.dm_account_api.account_api.get_v1_account(validate_response=validate_response)
+        # assert response.status_code == 200, f"Данные не были получены"
         return response
 
     def logout_current_user(self, response):

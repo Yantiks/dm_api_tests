@@ -3,6 +3,7 @@ import requests
 from dm_api_account.models.change_email import ChangeEmail
 from dm_api_account.models.change_password import ChangePassword
 from dm_api_account.models.reset_password import ResetPassword
+from dm_api_account.models.user_details_envelope import UserDetailsEnvelope
 from dm_api_account.models.user_envelope import UserEnvelope
 from restclient.client import RestClient
 from dm_api_account.models.registration import Registration
@@ -23,7 +24,7 @@ class AccountApi(RestClient):
         return response
 
     # метод для активации токена
-    def put_v1_account_token(self, token):
+    def put_v1_account_token(self, token, validate_response=True):
         """"
         Activate register user
         :param token:
@@ -33,11 +34,12 @@ class AccountApi(RestClient):
         response = self.put(
             path=f'/v1/account/{token}'
         )
-
+        if validate_response:
+            return UserEnvelope(**response.json())
         return response
 
     # метод для изменения имейла
-    def put_v1_account_email(self, change_email:ChangeEmail):
+    def put_v1_account_email(self, change_email:ChangeEmail, validate_response=True):
         """"
         Change registered user email
         :return:
@@ -46,10 +48,12 @@ class AccountApi(RestClient):
             path='/v1/account/email',
             json=change_email.model_dump(exclude_none=True, by_alias=True)
         )
+        if validate_response:
+            return UserEnvelope(**response.json())
         return response
 
     # метод для получения пользователя
-    def get_v1_account(self, **kwargs):
+    def get_v1_account(self, validate_response=True, **kwargs):
         """"
         Get current user
         :return:
@@ -58,6 +62,8 @@ class AccountApi(RestClient):
             path='/v1/account',
             **kwargs
         )
+        if validate_response:
+            return UserDetailsEnvelope(**response.json())
         return response
 
     # метод для изменения пароля
@@ -75,7 +81,7 @@ class AccountApi(RestClient):
         return response
 
     # метод для изменения пароля
-    def post_v1_account_password(self, reset_password:ResetPassword):
+    def post_v1_account_password(self, reset_password:ResetPassword, validate_response=True):
         """"
         Change registered user password
         :return:
@@ -84,4 +90,6 @@ class AccountApi(RestClient):
             path='/v1/account/password',
             json=reset_password.model_dump(exclude_none=True, by_alias=True)
         )
+        if validate_response:
+            return UserEnvelope(**response.json())
         return response
