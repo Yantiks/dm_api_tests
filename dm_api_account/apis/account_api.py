@@ -3,6 +3,7 @@ import requests
 from dm_api_account.models.change_email import ChangeEmail
 from dm_api_account.models.change_password import ChangePassword
 from dm_api_account.models.reset_password import ResetPassword
+from dm_api_account.models.user_envelope import UserEnvelope
 from restclient.client import RestClient
 from dm_api_account.models.registration import Registration
 
@@ -60,7 +61,7 @@ class AccountApi(RestClient):
         return response
 
     # метод для изменения пароля
-    def put_v1_account_password(self, change_password: ChangePassword):
+    def put_v1_account_password(self, change_password: ChangePassword, validate_response=True):
         """"
         Change registered user password
         :return:
@@ -69,6 +70,8 @@ class AccountApi(RestClient):
             path='/v1/account/password',
             json=change_password.model_dump(exclude_none=True, by_alias=True)
         )
+        if validate_response:
+            return UserEnvelope(**response.json())
         return response
 
     # метод для изменения пароля

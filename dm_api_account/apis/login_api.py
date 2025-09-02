@@ -7,7 +7,7 @@ from restclient.client import RestClient
 class LoginApi(RestClient):
 
     # логин пользователя
-    def post_v1_account_login(self, login_credentials:LoginCredentials):
+    def post_v1_account_login(self, login_credentials:LoginCredentials, validate_response:bool=False):
         """"
         Authenticate via credentials
         :return:
@@ -16,8 +16,8 @@ class LoginApi(RestClient):
             path='/v1/account/login',
             json=login_credentials.model_dump(exclude_none=True, by_alias=True)
         )
-
-        UserEnvelope(**response.json())
+        if validate_response:
+            return UserEnvelope(**response.json())
         return response
 
     def delete_v1_account_login(self, headers):

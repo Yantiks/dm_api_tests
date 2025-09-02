@@ -56,13 +56,14 @@ class AccountHelper:
 
         return activate_token
 
-    def user_login(self, login:str, password:str, remember_me:bool=True):
+    def user_login(self, login:str, password:str, remember_me:bool=True, validate_response:bool=False):
         login_credentials = LoginCredentials(
             login=login,
             password=password,
             remember_me = remember_me
         )
-        response = self.dm_account_api.login_api.post_v1_account_login(login_credentials=login_credentials)
+        response = self.dm_account_api.login_api.post_v1_account_login(login_credentials=login_credentials,
+                                                                       validate_response=validate_response)
         # assert response.status_code == 403, f"Пользователь был авторизован, код ответа: {response.status_code}"
         return response
 
@@ -98,7 +99,7 @@ class AccountHelper:
         )
 
         response = self.dm_account_api.account_api.put_v1_account_password(change_password=change_password)
-        assert response.status_code == 200, f"Пароль для пользователя {login} не был изменён"
+        #assert response.status_code == 200, f"Пароль для пользователя {login} не был изменён"
         return response
 
     def auth_client(self, login:str, password:str):

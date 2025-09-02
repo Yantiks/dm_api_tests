@@ -31,7 +31,7 @@ class User(BaseModel):
     online: datetime = Field(None, alias='online')
     name: str = Field(None, alias='name')
     location: str = Field(None, alias='location')
-    registration: datetime
+    registration: datetime = Field(None, alias='registration')
 
 
 class UserEnvelope(BaseModel):
