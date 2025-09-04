@@ -22,13 +22,13 @@ def test_account_creation(account_helper, prepare_user):
     "login, email, password, expected_status_code, error_message",
     [
         # 1. Короткий пароль
-        ("validlogin10", "user10@example.com", "123", 400, "Validation failed"),
+        ("validlogin12", "user12@example.com", "123", 400, "Validation failed"),
 
         # 2. Невалидный email
-        ("validlogin11", "invalidemail.com", "validPass123", 400, "Validation failed"),
+        ("validlogin13", "invalidemail.com", "validPass123", 400, "Validation failed"),
 
         # 3. Невалидный логин
-        ("a", "user11@example.com", "validPass123", 400, "Validation failed"),
+        ("a", "user13@example.com", "validPass123", 400, "Validation failed"),
     ]
 )
 def test_post_v1_account_negative(account_helper, login, email, password, expected_status_code, error_message):
