@@ -37,7 +37,6 @@ class AccountHelper:
             password=password,
             email=email)
         response_login = self.dm_account_api.account_api.post_v1_account(registration=registration)
-        # assert response_login.status_code == 201, f"Пользователь не был создан, код ошибки: {response_login.status_code}"
         return response_login
 
     def register_new_user(self, login:str, password:str, email:str):
