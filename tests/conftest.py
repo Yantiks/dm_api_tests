@@ -45,7 +45,7 @@ def mailhog_api():
     mailhog_client = MailhogApi(configuration=mailhog_configuration)
     return mailhog_client
 
-@pytest.fixture(scope="session")
+@pytest.fixture()
 def account_api():
     dm_api_configuration = DmApiConfiguration(host=v.get("service.dm_api_account"), disable_log=False)
     account_client = DmApiAccount(configuration=dm_api_configuration)
