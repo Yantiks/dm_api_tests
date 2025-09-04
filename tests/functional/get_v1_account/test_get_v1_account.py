@@ -1,18 +1,6 @@
 from datetime import datetime
-
-import requests
 from hamcrest import assert_that, has_property, starts_with, all_of, instance_of, has_properties, equal_to
-from contextlib import contextmanager
-from requests.exceptions import HTTPError
-
-
-@contextmanager
-def check_status_code_http(expected_status_code: requests.codes = requests.codes.OK, expected_message: str = ''):
-    try:
-        yield
-    except HTTPError as e:
-        assert e.response.status_code == expected_status_code
-        assert e.response.json()['title'] == expected_message
+from checkers.http_checkers import check_status_code_http
 
 
 def test_get_v1_account(auth_account_helper):
