@@ -1,6 +1,5 @@
 import pytest
 import structlog
-
 from checkers.http_checkers import check_status_code_http
 
 structlog.configure(
@@ -16,6 +15,7 @@ def test_account_creation(account_helper, prepare_user):
     password = prepare_user.password
     email = prepare_user.email
     account_helper.create_user(login=login, password=password, email=email)
+
 
 
 @pytest.mark.parametrize(
