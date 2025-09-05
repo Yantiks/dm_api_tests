@@ -1,5 +1,6 @@
 from json import JSONDecodeError
 
+import allure
 import requests
 from requests import session
 import structlog
@@ -7,6 +8,8 @@ import uuid
 import curlify
 
 from restclient.configuration import Configuration
+from restclient.utilities import allure_attach
+
 
 class RestClient:
     def __init__(self, configuration: Configuration):
@@ -32,6 +35,7 @@ class RestClient:
     def delete(self, path, **kwargs):
         return self.send_request(method='DELETE', path=path, **kwargs)
 
+    @allure_attach
     def send_request(self, method, path, **kwargs):
         log = self.log.bind(event_id=str(uuid.uuid4()))
         full_url = self.host + path

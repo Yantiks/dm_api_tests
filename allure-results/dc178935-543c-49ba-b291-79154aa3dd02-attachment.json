@@ -1,0 +1,15 @@
+{
+    "resource": {
+        "login": "yantik_2025_09_05T18_27_37",
+        "roles": [
+            "Guest",
+            "Player"
+        ],
+        "rating": {
+            "enabled": true,
+            "quality": 0,
+            "quantity": 0
+        },
+        "registration": "2025-09-05T15:27:37.77243+00:00"
+    }
+}

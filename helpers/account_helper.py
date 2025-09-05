@@ -1,5 +1,7 @@
 import time
 from json import loads, JSONDecodeError
+
+import allure
 from retrying import retry
 
 from dm_api_account.models.change_email import ChangeEmail
@@ -31,6 +33,7 @@ class AccountHelper:
         self.dm_account_api = dm_account_api
         self.mailhog = mailhog
 
+    @allure.step("Создание пользователя")
     def create_user(self, login:str, password:str, email:str):
         registration = Registration(
             login=login,
@@ -39,6 +42,7 @@ class AccountHelper:
         response_login = self.dm_account_api.account_api.post_v1_account(registration=registration)
         return response_login
 
+    @allure.step("Регистрация нового пользователя")
     def register_new_user(self, login:str, password:str, email:str):
         self.create_user(login, password, email)
         activate_token = self.get_and_activate_token(login=login)
@@ -55,6 +59,7 @@ class AccountHelper:
 
         return activate_token
 
+    @allure.step("Авторизация пользователя")
     def user_login(self, login:str, password:str, remember_me:bool=True, validate_response:bool=False, validate_headers=False):
         login_credentials = LoginCredentials(
             login=login,
@@ -71,6 +76,7 @@ class AccountHelper:
         token = {"x-dm-auth-token": response.headers["x-dm-auth-token"]}
         return token
 
+    @allure.step("Изменение имейла пользователя")
     def change_email(self, login:str, password:str, email:str, validate_response:bool=True):
         change_email = ChangeEmail(
             login=login,
@@ -82,6 +88,7 @@ class AccountHelper:
         # assert response.status_code == 200, f"Почта для пользователя {login} не была изменена"
         return response
 
+    @allure.step("Сброс пароля пользователя и получение токена")
     def reset_password(self, login:str, email:str, validate_response:bool=True):
         reset_password = ResetPassword(login=login, email=email)
         response = self.dm_account_api.account_api.post_v1_account_password(reset_password=reset_password, validate_response=validate_response)
@@ -90,6 +97,7 @@ class AccountHelper:
         assert token is not None, f"Токен для пользователя {login} не был получен"
         return token
 
+    @allure.step("Изменение пароля пользователя")
     def change_password(self, login:str, old_password:str, new_password:str, token:str):
         change_password = ChangePassword(
             login=login,
@@ -102,6 +110,7 @@ class AccountHelper:
         #assert response.status_code == 200, f"Пароль для пользователя {login} не был изменён"
         return response
 
+    @allure.step("Авторизация пользователя")
     def auth_client(self, login:str, password:str):
         response = self.user_login(login=login, password=password)
         token = {"x-dm-auth-token": response.headers["x-dm-auth-token"]}
@@ -109,17 +118,20 @@ class AccountHelper:
         self.dm_account_api.account_api.set_headers(token)
         self.dm_account_api.login_api.set_headers(token)
 
+    @allure.step("Получение данных о пользователе")
     def get_client(self, validate_response=True):
         response = self.dm_account_api.account_api.get_v1_account(validate_response=validate_response)
         # assert response.status_code == 200, f"Данные не были получены"
         return response
 
+    @allure.step("Логаут пользователя")
     def logout_current_user(self, response):
         token_header = self.get_auth_token_header(response)
         response = self.dm_account_api.login_api.delete_v1_account_login(headers=token_header)
         assert response.status_code == 204, f"Выход не был осуществлён"
         return response
 
+    @allure.step("Логаут со всех устройств")
     def logout_all(self):
         response = self.dm_account_api.login_api.delete_v1_account_login_all()
         assert response.status_code == 204, f"Выход не был осуществлён"

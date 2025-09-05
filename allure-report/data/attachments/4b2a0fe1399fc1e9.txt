@@ -1,0 +1,1 @@
+curl -H 'User-Agent: python-requests/2.32.4' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' -H 'Connection: keep-alive' -H 'Content-Length: 115' -H 'Content-Type: application/json' -d '{"login": "yantik_2025_09_05T18_27_38", "password": "12345abcdi", "email": "yantik_2025_09_05T18_27_38@google.com"}' http://5.63.153.31:5051/v1/account

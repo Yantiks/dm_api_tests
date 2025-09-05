@@ -1,3 +1,7 @@
+import allure
+
+
+@allure.title("Проверка логаута текущего пользователя")
 def test_delete_v1_account_login(account_helper, prepare_user):
     # регистрация нового пользователя
     login = prepare_user.login

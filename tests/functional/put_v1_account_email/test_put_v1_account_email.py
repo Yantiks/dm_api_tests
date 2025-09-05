@@ -1,3 +1,4 @@
+import allure
 import structlog
 
 from checkers.http_checkers import check_status_code_http
@@ -8,6 +9,7 @@ structlog.configure(
     ]
 )
 
+@allure.title("Проверка смены имейла пользователя")
 def test_login_with_changed_email(account_helper, prepare_user):
     # регистрация нового пользователя
     login = prepare_user.login

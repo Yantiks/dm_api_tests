@@ -1,4 +1,7 @@
+import allure
 
+
+@allure.title("Проверка смены пароля пользователя")
 def test_put_v1_account_password(account_helper, prepare_user):
     # регистрация нового пользователя
     login = prepare_user.login

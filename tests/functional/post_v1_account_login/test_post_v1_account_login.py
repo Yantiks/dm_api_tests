@@ -1,6 +1,9 @@
+import allure
+
 from checkers.post_v1_account_login import PostV1AccountLogin
 
 
+@allure.title("Проверка авторизации пользователя")
 def test_login_account(account_helper, prepare_user):
     # регистрация нового пользователя
     # получение токена с почты
