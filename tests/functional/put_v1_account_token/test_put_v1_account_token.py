@@ -1,3 +1,4 @@
+import allure
 import structlog
 
 structlog.configure(
@@ -6,6 +7,7 @@ structlog.configure(
     ]
 )
 
+@allure.title("Проверка активации токена")
 def test_put_account_token(account_helper, prepare_user):
     login = prepare_user.login
     password = prepare_user.password

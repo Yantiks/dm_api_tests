@@ -1,0 +1,16 @@
+{
+    "resource": {
+        "login": "yantik_test200",
+        "roles": [
+            "Guest",
+            "Player"
+        ],
+        "rating": {
+            "enabled": true,
+            "quality": 0,
+            "quantity": 0
+        },
+        "online": "2025-09-05T15:26:56.039376+00:00",
+        "registration": "2025-08-27T18:24:56.80009+00:00"
+    }
+}

@@ -1,0 +1,117 @@
+{
+    "data": null,
+    "event": "Request",
+    "event_id": "3f2eed07-9d29-464b-a4d4-2a1a516adf5f",
+    "full_url": "http://5.63.153.31:5051/v1/account",
+    "headers": null,
+    "json": {
+        "email": "yantik_2025_09_05T18_27_36@google.com",
+        "login": "yantik_2025_09_05T18_27_36",
+        "password": "12345abcdi"
+    },
+    "method": "POST",
+    "params": null,
+    "service": "api"
+}
+curl -H 'User-Agent: python-requests/2.32.4' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' -H 'Connection: keep-alive' -H 'Content-Length: 115' -H 'Content-Type: application/json' -d '{"login": "yantik_2025_09_05T18_27_36", "password": "12345abcdi", "email": "yantik_2025_09_05T18_27_36@google.com"}' http://5.63.153.31:5051/v1/account
+{
+    "event": "Response",
+    "event_id": "3f2eed07-9d29-464b-a4d4-2a1a516adf5f",
+    "headers": "{'Content-Length': '0', 'Date': 'Fri, 05 Sep 2025 15:27:36 GMT', 'Server': 'Kestrel', 'Location': 'http://5.63.153.31:5051/v1/users/yantik_2025_09_05T18_27_36'}",
+    "json": {},
+    "service": "api",
+    "status_code": 201
+}
+{
+    "data": null,
+    "event": "Request",
+    "event_id": "b9dd8125-adfc-40ae-b492-265f7adc9cf6",
+    "full_url": "http://5.63.153.31:5051/v1/account/fc21a8ec-25be-457d-9409-da9d9019f38e",
+    "headers": null,
+    "json": null,
+    "method": "PUT",
+    "params": null,
+    "service": "api"
+}
+curl -X PUT -H 'User-Agent: python-requests/2.32.4' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' -H 'Connection: keep-alive' -H 'Content-Length: 0' http://5.63.153.31:5051/v1/account/fc21a8ec-25be-457d-9409-da9d9019f38e
+{
+    "event": "Response",
+    "event_id": "b9dd8125-adfc-40ae-b492-265f7adc9cf6",
+    "headers": "{'Content-Type': 'application/json; charset=utf-8', 'Date': 'Fri, 05 Sep 2025 15:27:37 GMT', 'Server': 'Kestrel', 'Transfer-Encoding': 'chunked'}",
+    "json": {
+        "resource": {
+            "login": "yantik_2025_09_05T18_27_36",
+            "rating": {
+                "enabled": true,
+                "quality": 0,
+                "quantity": 0
+            },
+            "roles": [
+                "Guest",
+                "Player"
+            ]
+        }
+    },
+    "service": "api",
+    "status_code": 200
+}
+{
+    "data": null,
+    "event": "Request",
+    "event_id": "8a787be8-a014-407c-9e03-6a517ebb4b74",
+    "full_url": "http://5.63.153.31:5051/v1/account/login",
+    "headers": null,
+    "json": {
+        "login": "yantik_2025_09_05T18_27_36",
+        "password": "12345abcdi",
+        "rememberMe": true
+    },
+    "method": "POST",
+    "params": null,
+    "service": "api"
+}
+curl -H 'User-Agent: python-requests/2.32.4' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' -H 'Connection: keep-alive' -H 'Content-Length: 85' -H 'Content-Type: application/json' -d '{"login": "yantik_2025_09_05T18_27_36", "password": "12345abcdi", "rememberMe": true}' http://5.63.153.31:5051/v1/account/login
+{
+    "event": "Response",
+    "event_id": "8a787be8-a014-407c-9e03-6a517ebb4b74",
+    "headers": "{'Content-Type': 'application/json; charset=utf-8', 'Date': 'Fri, 05 Sep 2025 15:27:37 GMT', 'Server': 'Kestrel', 'Transfer-Encoding': 'chunked', 'X-Dm-Auth-Token': 'IQJh+zgzF5C/COeu95tNAtjxrxsQCv+JqZBIDAhdaaywzznMmScmksC3v8qdONJD/EHHwX58fpqyM0NxjCiT2nDXOaETd0K/GKi+fJt/BNmdbvFgyGtYaHUwtKhwetgw65FLsrARspk='}",
+    "json": {
+        "resource": {
+            "login": "yantik_2025_09_05T18_27_36",
+            "rating": {
+                "enabled": true,
+                "quality": 0,
+                "quantity": 0
+            },
+            "registration": "2025-09-05T15:27:36.442385+00:00",
+            "roles": [
+                "Guest",
+                "Player"
+            ]
+        }
+    },
+    "service": "api",
+    "status_code": 200
+}
+{
+    "data": null,
+    "event": "Request",
+    "event_id": "b23c30ef-f9f7-4924-9c15-5aaa22986a95",
+    "full_url": "http://5.63.153.31:5051/v1/account/login",
+    "headers": {
+        "x-dm-auth-token": "IQJh+zgzF5C/COeu95tNAtjxrxsQCv+JqZBIDAhdaaywzznMmScmksC3v8qdONJD/EHHwX58fpqyM0NxjCiT2nDXOaETd0K/GKi+fJt/BNmdbvFgyGtYaHUwtKhwetgw65FLsrARspk="
+    },
+    "json": null,
+    "method": "DELETE",
+    "params": null,
+    "service": "api"
+}
+curl -X DELETE -H 'User-Agent: python-requests/2.32.4' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' -H 'Connection: keep-alive' -H 'x-dm-auth-token: IQJh+zgzF5C/COeu95tNAtjxrxsQCv+JqZBIDAhdaaywzznMmScmksC3v8qdONJD/EHHwX58fpqyM0NxjCiT2nDXOaETd0K/GKi+fJt/BNmdbvFgyGtYaHUwtKhwetgw65FLsrARspk=' -H 'Content-Length: 0' http://5.63.153.31:5051/v1/account/login
+{
+    "event": "Response",
+    "event_id": "b23c30ef-f9f7-4924-9c15-5aaa22986a95",
+    "headers": "{'Date': 'Fri, 05 Sep 2025 15:27:37 GMT', 'Server': 'Kestrel'}",
+    "json": {},
+    "service": "api",
+    "status_code": 204
+}
