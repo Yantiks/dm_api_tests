@@ -1,9 +1,11 @@
+import allure
 import requests
 from json import loads
 from restclient.client import RestClient
 
 class MailApi(RestClient):
 
+    @allure.step("Получение токена с почты")
     # получение токена с почты
     def get_api_v2_messages(self, limit=50):
         """"
