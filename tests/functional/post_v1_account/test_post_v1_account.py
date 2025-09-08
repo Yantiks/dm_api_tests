@@ -27,7 +27,7 @@ class TestsPostV1Account:
         "login, email, password, expected_status_code, error_message",
         [
             # 1. Короткий пароль
-            ("validlogin20", "user19@example.com", "123", 400, "Validation failed"),
+            ("validlogin21", "user19@example.com", "123", 400, "Validation failed"),
 
             # 2. Невалидный email
             ("validlogin18", "invalidemail.com", "validPass123", 400, "Validation failed"),
