@@ -16,7 +16,7 @@ class TestsGetV1Account:
     def test_get_v1_account(self, auth_account_helper):
         with check_status_code_http():
             response = auth_account_helper.get_client()
-            GetV1Account.check_response_values(response)
+            GetV1Account.check_response_values(response, login="yantik")
 
     @allure.title("Проверка получения данных о неавторизованном пользователе")
     def test_get_v1_account_no_auth(self, account_helper):
@@ -29,8 +29,8 @@ class TestsGetV1Account:
             response = auth_account_helper.get_client()
             with soft_assertions():
                 assert_that(response.resource.login).is_equal_to('yantik_test200')
-                print("Прошла проверка типа поля логин")
+                #print("Прошла проверка типа поля логин")
                 assert_that(response.resource.online).is_instance_of(datetime)
-                print("Прошла проверка типа поля online")
+                #print("Прошла проверка типа поля online")
                 assert_that(response.resource.roles).contains(UserRole.GUEST, UserRole.PLAYER)
-                print("Прошла проверка ролей пользователя")
+                #print("Прошла проверка ролей пользователя")
